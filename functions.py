@@ -20,6 +20,10 @@ screen_dim = pyautogui.size()
 Basic Recording function that records all the inputs and returns a new file.
 Doesn't allow files with duplucate names
 @param args: the input parameters on the command line in a list
+    - duration: float representing the duration of the recording
+    - name: string representing the of the file (without .txt appeneded)
+    - delay: float representing the time to wait before recording
+        takes the form of "delay=[float]"
 @return File which the record function has written to.
 """
 def record(args):
@@ -27,6 +31,21 @@ def record(args):
     now = time.localtime()
     duration = 3
     name = "{0}-{1}-{2} {3}, {4}, {5}".format(now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+    delay = 0
+
+    try:
+        for arg in args:
+            if "delay" in arg:
+                delay = float(arg[6:])
+                args.remove(arg)
+                break;
+    except ValueError:
+        print("Formatting Error: Remember that delay should be in the form of: delay=[length]")
+        return
+
+    if len(args) > 3:
+        print("Too many arguments")
+        return
 
     if len(args) == 1:
         try:
@@ -41,11 +60,19 @@ def record(args):
             name = args[0]
             duration = float(args[1])
 
-    if os.path.exists(recording_path + sep + name + ".txt"):
+    if ".txt" not in name:
+        name += ".txt"
+
+    if os.path.exists(recording_path + sep + name):
         print('Recording named "{0}" already exists. Please use alternative name or delete file'.format(name))
         return
 
-    f = open(recordings_path + sep + name + ".txt", "a+")
+    # print("name: {0}".format(name))
+    # print("duration: {0}".format(str(duration)))
+    # print("delay: {0}".format(str(delay)))
+    # return
+
+    f = open(recordings_path + sep + name, "a+")
 
     """
     Mouse position is formatted as: [time] mouse_pos [x] [y]
@@ -79,9 +106,6 @@ def record(args):
     def on_scroll(x, y, dx, dy):
         # print("Scrolling at ({0}, {1}) for dx: {2} and dy: {3}".format(x, y, dx, dy))
         f.write("{0} scroll {1} {2} {3} {4} \n".format(time.time_ns(), x/screen_dim[0], y/screen_dim[1], dx/screen_dim[0], dy/screen_dim[1]))
-
-
-    """ Keyboard Listener below"""
 
     """
     Key presses are formatted as: [time] pressed [key]
