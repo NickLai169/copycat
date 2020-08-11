@@ -1,0 +1,24 @@
+Functionality:
+- We want it to be able to record mouse and keyboard movements, and replicate it
+  - Both either in regular speed or hastened speed
+- We want it to have the functionality of verifying whether the current screen is
+  looking as it should.
+
+Documentation:
+pynput - https://pypi.org/project/pynput/#description
+pyautogui - https://pyautogui.readthedocs.io/en/latest/index.html
+
+<<<<<< commit d36118d00acd3ab042ba29ab1f27ec682a2f2ca0 >>>>>>
+
+I will now copy and paste the tester file from LeagueBot into this project, that
+file should have the basic pynput framework established.
+
+- LeagueBot tester imported
+
+Note: All functions should take at least 1 argument, even if that argument is
+expected to be an empty list of arguments
+
+- created functions.py which should house all the functions
+- set up the basic main function framework
+- Figured out how to set a timer
+- Completed the timing system
