@@ -38,3 +38,13 @@ recordings work on screens of the same aspect ratio, but different dimensions.
 
 I noticed there was a problem with my retString approach, therefore I am going
 to try to revert back to the write-as-you-go strategy.
+
+<<<<<< commit f1c9ed9c5036f15d3e1d0e953423d1d6132f9e6a >>>>>>
+
+Write-as-you-go strategy adopted, seems to be going smoothly so far
+
+- Implemented all mouse_listener functions
+- Implemented all key_listener functions
+- I think record() funcion is complete
+
+Now we should create a "perform" function that analyses and replicates a recording
