@@ -7,6 +7,9 @@ Functionality:
 Documentation:
 pynput - https://pypi.org/project/pynput/#description
 pyautogui - https://pyautogui.readthedocs.io/en/latest/index.html
+os.path - https://docs.python.org/3/library/os.path.html
+time - https://docs.python.org/3/library/time.html
+reading and writing files - https://www.guru99.com/reading-and-writing-files-in-python.html
 
 <<<<<< commit d36118d00acd3ab042ba29ab1f27ec682a2f2ca0 >>>>>>
 
@@ -22,3 +25,6 @@ expected to be an empty list of arguments
 - set up the basic main function framework
 - Figured out how to set a timer
 - Completed the timing system
+- Completed the variable assignments of duration and name
+
+Ready to begin writing and recording to a new file.
