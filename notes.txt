@@ -28,3 +28,13 @@ expected to be an empty list of arguments
 - Completed the variable assignments of duration and name
 
 Ready to begin writing and recording to a new file.
+
+<<<<<< commit 068e8025ae66074b4b3a7bfb2088f7d5fc3cc31f >>>>>>
+
+I am ready to begin writing and recording to new files
+
+Note: The mouse position and whatnot are recorded as ratios to ensure that the
+recordings work on screens of the same aspect ratio, but different dimensions.
+
+I noticed there was a problem with my retString approach, therefore I am going
+to try to revert back to the write-as-you-go strategy.
