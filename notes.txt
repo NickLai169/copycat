@@ -73,3 +73,9 @@ TODO:
 
 I realized that the original pynput listeners get angry when I use shortcuts. I
 think we'll just have to work around this.
+
+<<<<<<<<{{{ commit fc346f91aa2ae180cc763568778110674e534391 }}}>>>>>>>>
+Beginning implementation of serialization lists
+
+Notes:
+- 
