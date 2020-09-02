@@ -72,7 +72,15 @@ def record(args):
     # print("delay: {0}".format(str(delay)))
     # return
 
+    while delay > 1:
+        delay -= 1
+        print("[====== {0} seconds until recoring begins ======]".format(delay))
+        time.sleep(1)
+    time.sleep(delay)
+
     f = open(recordings_path + sep + name, "a+")
+    print("<========[RECORDING STARTING for {0} SECONDS INTO FILE {1}]========>".format(duration, name))
+    f.write("Start_Time: {0} \n".format(time.time_ns()))
 
     """
     Mouse position is formatted as: [time] mouse_pos [x] [y]
@@ -114,19 +122,19 @@ def record(args):
     def on_press(key):
         try:
             # print('alphanumeric key {0} pressed'.format(key.char))
-            f.write("{1} pressed {0} \n".format(key.char, time.time_ns()))
+            f.write("{1} pressed {0} \n".format(str(key.char), time.time_ns()))
         except AttributeError:
             # print('special key {0} pressed'.format(key))
-            f.write("{1} pressed {0} \n".format(key, time.time_ns()))
+            f.write("{1} pressed {0} \n".format(str(key), time.time_ns()))
 
     """
     Key releases are formatted as: [time] pressed [key]
     @param key: The key object that was pressed
     """
     def on_release(key):
-        f.write('{0} release \n'.format(key))
+        f.write('{1} release {0}\n'.format(str(key), time.time_ns()).replace("'", ""))
         if key == keyboard.Key.esc:
-            print("Function terminated prematurely")
+            print("<######[RECORDING PREMATURELY TERMINATED VIA ESC-Key]######>")
             return False
 
     """
@@ -145,3 +153,13 @@ def record(args):
             kl.join()
 
     f.close()
+    print("<========[RECORDING STOPPED]========>")
+
+"""
+Moves the mouse from starting x, y position to finishing x,y position
+"""
+def move_mouse(delay, x_start, y_start, x_finish, y_finish, duration):
+    print("nothing yet")
+
+def perform(args):
+    print("nothing yet")

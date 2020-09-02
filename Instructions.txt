@@ -1,0 +1,4 @@
+To run a function run the below commands on the command line:
+
+python main.py [function name] [arguments]
+

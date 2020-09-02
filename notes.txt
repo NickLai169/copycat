@@ -11,6 +11,7 @@ os.path - https://docs.python.org/3/library/os.path.html
 time - https://docs.python.org/3/library/time.html
 reading and writing files - https://www.guru99.com/reading-and-writing-files-in-python.html
 
+LOG:
 <<<<<< commit d36118d00acd3ab042ba29ab1f27ec682a2f2ca0 >>>>>>
 
 I will now copy and paste the tester file from LeagueBot into this project, that
@@ -29,6 +30,7 @@ expected to be an empty list of arguments
 
 Ready to begin writing and recording to a new file.
 
+
 <<<<<< commit 068e8025ae66074b4b3a7bfb2088f7d5fc3cc31f >>>>>>
 
 I am ready to begin writing and recording to new files
@@ -39,6 +41,7 @@ recordings work on screens of the same aspect ratio, but different dimensions.
 I noticed there was a problem with my retString approach, therefore I am going
 to try to revert back to the write-as-you-go strategy.
 
+
 <<<<<< commit f1c9ed9c5036f15d3e1d0e953423d1d6132f9e6a >>>>>>
 
 Write-as-you-go strategy adopted, seems to be going smoothly so far
@@ -48,3 +51,25 @@ Write-as-you-go strategy adopted, seems to be going smoothly so far
 - I think record() funcion is complete
 
 Now we should create a "perform" function that analyses and replicates a recording
+
+
+<<<<<< commit 1cc4e310c41d777e61b2ad12becc1336a214d26c >>>>>>
+
+It has occurred to me that our function mightn't release all keys at the end of
+operations, would that be a problem?
+
+Also, there appears to be a strange character in first.txt. I am unsure of its
+cause and whether it would interfere in its operations.
+
+I realized that since each input is independent, it would be wise to have each
+input running parallel to each other.
+
+I have now figured out how to run functions in parallel and it has been Implemented
+in tester.py
+
+TODO:
+- Create some sort of function to construct a list of tasks
+- Create a function to interpret that list of tasks and translate it into action.
+
+I realized that the original pynput listeners get angry when I use shortcuts. I
+think we'll just have to work around this.

@@ -5,7 +5,8 @@ import sys
 from functions import *
 
 function_map = {
-"record": record
+"record": record,
+"perform": perform
 }
 "===================[MAIN FUNCTION(S)]==================="
 def main():
