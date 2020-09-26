@@ -77,5 +77,11 @@ think we'll just have to work around this.
 <<<<<<<<{{{ commit fc346f91aa2ae180cc763568778110674e534391 }}}>>>>>>>>
 Beginning implementation of serialization lists
 
-Notes:
-- 
+- Altered the main function so that I don't need to keep adding functions to it
+  as I go.
+- Implemented the basics of serialization of tasks
+
+TODO: Need to figure out how to make the listener listen to both hotkeys and
+regular keystrokes
+TODO: Let's create a "settings" file which holds all the custom settings for the
+program and can be edited and saved by the user.

@@ -2,6 +2,7 @@ import pyautogui
 import time
 import os
 import sys
+import pickle
 
 from pynput.mouse import Listener as mouse_listener
 from pynput.keyboard import Listener as key_listener
@@ -153,6 +154,129 @@ def record(args):
             kl.join()
 
     f.close()
+    print("<========[RECORDING STOPPED]========>")
+
+def record_serial(args):
+    recording_path = directory + sep + "recordings"
+    now = time.localtime()
+    duration = 3
+    name = "{0}-{1}-{2} {3}, {4}, {5}".format(now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+    delay = 0
+
+    try:
+        for arg in args:
+            if "delay" in arg:
+                delay = float(arg[6:])
+                args.remove(arg)
+                break;
+    except ValueError:
+        print("Formatting Error: Remember that delay should be in the form of: delay=[length]")
+        return
+
+    if len(args) > 3:
+        print("Too many arguments")
+        return
+
+    if len(args) == 1:
+        try:
+            duration = float(args[0])
+        except ValueError:
+            name = args[0]
+    elif len(args) == 2:
+        try:
+            duration = float(args[0])
+            name = args[1]
+        except ValueError:
+            name = args[0]
+            duration = float(args[1])
+
+    # if ".txt" not in name:
+    #     name += ".txt"
+
+    if os.path.exists(recording_path + sep + name):
+        print('Recording named "{0}" already exists. Please use alternative name or delete file'.format(name))
+        return
+
+    while delay > 1:
+        delay -= 1
+        print("[====== {0} seconds until recoring begins ======]".format(delay))
+        time.sleep(1)
+    time.sleep(delay)
+
+    inp_lst = []
+    time_lst = []
+    print("<========[RECORDING STARTING for {0} SECONDS INTO FILE {1}]========>".format(duration, name))
+
+    """
+    Mouse position is formatted as: [time] mouse_pos [x] [y]
+    @param x: the horizontal pixel-position of the mouse
+    @param y: the vertical pixel-position of the mouse
+    """
+    def on_move(x, y):
+        print("mouse is at position ({0}, {1})".format(x, y))
+
+    """
+    Mouse position is formatted as: [time] click_pos [x] [y] [button] [pressed]
+    @param x: the horizontal pixel-position of the mouse
+    @param y: the vertical pixel-position of the mouse
+    @param button: which mouse button was pressed
+    @param pressed: Boolean representing whether it was pressed down (True) or
+        released (False)
+    """
+    def on_click(x, y, button, pressed):
+        print("Pressed: {0} | Button: {1} | position ({2}, {3})".format(pressed, button, x, y))
+
+
+    """
+    Scrolling is formatted as: [time] scoll [x] [y] [dx] [dy]
+    @param x: the horizontal pixel-position of the mouse
+    @param y: the vertical pixel-position of the mouse
+    @param dx: the horizontal scrolling of the mouse
+    @param dy: the vertical scrolling of the mouse
+    """
+    def on_scroll(x, y, dx, dy):
+        print("Scrolling at ({0}, {1}) for dx: {2} and dy: {3}".format(x, y, dx, dy))
+
+    """
+    Key presses are formatted as: [time] pressed [key]
+    @param key: The key object that was pressed
+    """
+    def on_press(key):
+        try:
+            # print('alphanumeric key {0} pressed'.format(key.char))
+            inp_lst.append(key.char)
+            time_lst.append(time.time_ns())
+        except AttributeError:
+            # print('special key {0} pressed'.format(key))
+            inp_lst.append(key)
+            time_lst.append(time.time_ns())
+
+    """
+    Key releases are formatted as: [time] pressed [key]
+    @param key: The key object that was pressed
+    """
+    def on_release(key):
+        if key == keyboard.Key.esc:
+            print("<######[RECORDING PREMATURELY TERMINATED VIA ESC-Key]######>")
+            return False
+
+    """
+    Timer function to terminate the listener after the indicated duration has passed
+    @param t: The duration that the listener should record for
+    """
+    def time_me(t):
+        time.sleep(t)
+        kl.stop()
+        ml.stop()
+
+    with key_listener(on_press=on_press,on_release=on_release) as kl:
+        with mouse_listener(on_click=on_click, on_scroll=on_scroll) as ml:
+            time_me(duration)
+            ml.join()
+            kl.join()
+
+    file = open(recordings_path + sep + name + ".p", "w+b")
+    pickle.dump([inp_lst, time_lst], file)
     print("<========[RECORDING STOPPED]========>")
 
 """
