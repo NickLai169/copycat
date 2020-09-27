@@ -2,3 +2,40 @@ To run a function run the below commands on the command line:
 
 python main.py [function name] [arguments]
 
+
+Functions:
+
+record {duration=RECORD_DURATION} {name=[y/m/d hr/min/sec]} {delay=RECORD_DELAY}
+  Basic Recording function that records all the inputs and returns a new file.
+  Doesn't allow files with duplucate names
+  @param args: the input parameters on the command line in a list
+    - duration: float representing the duration of the recording
+    - name: string representing the of the file (without .txt appeneded)
+    - delay: float representing the time to wait before recording
+        takes the form of "delay=[float]"
+  @SideEffect: Creates a File which the record function has written to.
+
+
+record_serial {duration=RECORD_DURATION} {name=[y/m/d hr/min/sec]} {delay=RECORD_DELAY}
+  Similar to record, except it serializes the output instead, turing it into
+  readable file object which allows us to extract the original data structures.
+
+
+update_settings {setting_name} {setting_value}
+  Script that updates the settings within the .settings file.
+  @param args: the input parameters on the command line in a list
+    - setting_name: The name of the setting default we're trying to overwrite
+    - setting_value: The new value of said parameter
+
+
+restore_defaults
+  A function that simply restores the original default settings.
+
+
+show_defaults
+  Shows all the current default settings.
+
+
+perform
+
+NOTE: Our script doesn't support hotkeys just yet, we need to figure that out

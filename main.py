@@ -3,11 +3,15 @@ import time
 import os
 import sys
 from functions import *
+from settings import *
 
 function_map = {
 "record": record,
 "perform": perform,
 "record_serial": record_serial,
+"update_settings": update_settings,
+"restore_defaults": restore_defaults,
+"show_defaults": show_defaults,
 }
 "===================[MAIN FUNCTION(S)]==================="
 
@@ -22,9 +26,16 @@ def main():
         # inputs = sys.argv[2:]
 
         # function_to_run(inputs)
-        exec(sys.argv[1] + "(sys.argv[2:])")
+        if len(sys.argv) > 2:
+            exec(sys.argv[1] + "(sys.argv[2:])")
+        else:
+            exec(sys.argv[1] + "()")
     except NameError:
-        raise Exception("INCORRECT FUNCTION NAME 2.0")
+        print("Incorrect function name")
+    except TypeError:
+        print("Invalid inputs")
+    except:
+        print(sys.exc_info()[0])
 
 if __name__ == "__main__":
     main()

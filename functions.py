@@ -8,8 +8,10 @@ from pynput.mouse import Listener as mouse_listener
 from pynput.keyboard import Listener as key_listener
 from pynput import keyboard
 
-pyautogui.FAILSAFE = True
-pyautogui.PAUSE = 0.5
+from settings import *
+
+pyautogui.FAILSAFE = PYAUTOGUI_FAILSAFE_STATUS
+pyautogui.PAUSE = PYAUTOGUI_PAUSE_DURATION
 
 sep = os.path.sep
 directory = os.path.dirname(os.path.realpath(__file__))
@@ -21,18 +23,18 @@ screen_dim = pyautogui.size()
 Basic Recording function that records all the inputs and returns a new file.
 Doesn't allow files with duplucate names
 @param args: the input parameters on the command line in a list
-    - duration: float representing the duration of the recording
-    - name: string representing the of the file (without .txt appeneded)
-    - delay: float representing the time to wait before recording
-        takes the form of "delay=[float]"
-@return File which the record function has written to.
+- duration: float representing the duration of the recording
+- name: string representing the of the file (without .txt appeneded)
+- delay: float representing the time to wait before recording
+    takes the form of "delay=[float]"
+@SideEffect: Creates a File which the record function has written to.
 """
 def record(args):
     recording_path = directory + sep + "recordings"
     now = time.localtime()
-    duration = 3
+    duration = RECORD_DURATION
     name = "{0}-{1}-{2} {3}, {4}, {5}".format(now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
-    delay = 0
+    delay = RECORD_DELAY
 
     try:
         for arg in args:
@@ -67,11 +69,6 @@ def record(args):
     if os.path.exists(recording_path + sep + name):
         print('Recording named "{0}" already exists. Please use alternative name or delete file'.format(name))
         return
-
-    # print("name: {0}".format(name))
-    # print("duration: {0}".format(str(duration)))
-    # print("delay: {0}".format(str(delay)))
-    # return
 
     while delay > 1:
         delay -= 1
@@ -156,12 +153,13 @@ def record(args):
     f.close()
     print("<========[RECORDING STOPPED]========>")
 
+
 def record_serial(args):
     recording_path = directory + sep + "recordings"
     now = time.localtime()
-    duration = 3
+    duration = RECORD_DURATION
     name = "{0}-{1}-{2} {3}, {4}, {5}".format(now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
-    delay = 0
+    delay = RECORD_DELAY
 
     try:
         for arg in args:
@@ -278,6 +276,8 @@ def record_serial(args):
     file = open(recordings_path + sep + name + ".p", "w+b")
     pickle.dump([inp_lst, time_lst], file)
     print("<========[RECORDING STOPPED]========>")
+
+
 
 """
 Moves the mouse from starting x, y position to finishing x,y position

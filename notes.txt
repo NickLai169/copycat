@@ -85,3 +85,18 @@ TODO: Need to figure out how to make the listener listen to both hotkeys and
 regular keystrokes
 TODO: Let's create a "settings" file which holds all the custom settings for the
 program and can be edited and saved by the user.
+
+
+<<<<<<<<{{{ commit 11dc16c4fceb0602818c087d63d18c5745e3d210 }}}>>>>>>>>
+Beginning implementation of settings and defaults
+
+- Completed load_settings() function
+- Completed update_settings() function
+  - NOTE: it doesn't support different number types, ints must remain ints, and
+    floats must remain floats
+- Completed restore_defaults() function
+- Completed the show_defaults() function
+
+I think I am going to enable custom name functions.
+And by extension, in the future I ought to be able to have people custom run specific
+files by simply running a command

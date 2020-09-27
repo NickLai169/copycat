@@ -1,0 +1,8 @@
+function_map = {
+"record": record,
+"perform": perform,
+"record_serial": record_serial,
+"update_settings": update_settings,
+"restore_defaults": restore_defaults,
+"show_defaults": show_defaults,
+}
